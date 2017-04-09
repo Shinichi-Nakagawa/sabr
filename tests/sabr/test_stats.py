@@ -146,7 +146,7 @@ class TestStats(unittest.TestCase):
         """
         # ichiro suzuki(2004)
         rc = Stats.rc(320, 262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19)
-        self.assertEqual(rc, 131.8)
+        self.assertEqual(rc, 132.1)
 
     def test_rc27(self):
         """

@@ -198,11 +198,11 @@ class Stats(object):
         """
         # (出塁能力A * 進塁能力B) / 出塁機会C
         a = float(h + bb + hbp - cs - gidp)
-        b = float(tb) + round(0.24 * float(bb + hbp - ibb)) + round(0.62 * float(sb))\
-            + round(0.5 * float(sh + sf)) - round(0.03 * float(so))
+        b = float(tb) + round(0.24 * float(bb + hbp - ibb), 1) + round(0.62 * float(sb), 1)\
+            + round(0.5 * float(sh + sf), 1) - round(0.03 * float(so), 1)
         c = float(ab + bb + hbp + sf + sh)
         a_b = round(a + 2.4 * c) * (b + 3.0 * c)
-        _9c = 9.0 * c
+        _9c = round(9.0 * c, 1)
         _09c = round(0.9 * c, 1)
         rc = round(a_b / _9c - _09c, 1)
         return rc
@@ -232,12 +232,14 @@ class Stats(object):
         :return: (float) run created
         """
         # (出塁能力A * 進塁能力B) / 出塁機会C
-        custom_tb = round(1.125 * single) + round(1.69 * _2b) + round(3.02 * _3b) + round(3.73 * hr)
-        a = h + bb + hbp - cs - gidp
-        b = custom_tb + round(0.29 * (bb + hbp - ibb)) + round(0.492 * (sf + sh + sb)) - round(0.04 * so)
-        c = ab + bb + hbp + sf + sh
-        a_b = round(a + 2.4 * c) * (b + 3 * c)
-        _9c = 9.0 * c
+        custom_tb = round(1.125 * float(single), 1) + round(1.69 * float(_2b), 1)\
+                    + round(3.02 * float(_3b), 1) + round(3.73 * float(hr), 1)
+        a = float(h + bb + hbp - cs - gidp)
+        b = custom_tb + round(0.29 * float(bb + hbp - ibb), 1)\
+            + round(0.492 * float(sf + sh + sb), 1) - round(0.04 * float(so), 1)
+        c = float(ab + bb + hbp + sf + sh)
+        a_b = round(a + 2.4 * c, 1) * (b + 3.0 * c)
+        _9c = round(9.0 * c, 1)
         _09c = round(0.9 * c, 1)
         rc = round(a_b / _9c - _09c, 1)
         return rc
