@@ -201,9 +201,9 @@ class Stats(object):
         b = float(tb) + round(0.24 * float(bb + hbp - ibb)) + round(0.62 * float(sb))\
             + round(0.5 * float(sh + sf)) - round(0.03 * float(so))
         c = float(ab + bb + hbp + sf + sh)
-        a_b = round(a + 2.4 * c) * (b + 3 * c)
+        a_b = round(a + 2.4 * c) * (b + 3.0 * c)
         _9c = 9.0 * c
-        _09c = round(0.9 * c)
+        _09c = round(0.9 * c, 1)
         rc = round(a_b / _9c - _09c, 1)
         return rc
 
@@ -237,8 +237,8 @@ class Stats(object):
         b = custom_tb + round(0.29 * (bb + hbp - ibb)) + round(0.492 * (sf + sh + sb)) - round(0.04 * so)
         c = ab + bb + hbp + sf + sh
         a_b = round(a + 2.4 * c) * (b + 3 * c)
-        _9c = 9 * c
-        _09c = round(0.9 * c)
+        _9c = 9.0 * c
+        _09c = round(0.9 * c, 1)
         rc = round(a_b / _9c - _09c, 1)
         return rc
 
