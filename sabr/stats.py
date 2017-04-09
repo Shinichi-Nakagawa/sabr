@@ -202,7 +202,7 @@ class Stats(object):
             + round(0.5 * float(sh + sf)) - round(0.03 * float(so))
         c = float(ab + bb + hbp + sf + sh)
         a_b = round(a + 2.4 * c) * (b + 3 * c)
-        _9c = 9 * c
+        _9c = 9.0 * c
         _09c = round(0.9 * c)
         rc = round(a_b / _9c - _09c, 1)
         return rc
