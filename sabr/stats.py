@@ -134,7 +134,7 @@ class Stats(object):
         :param ab: at bat
         :return: (float)slugging
         """
-        return round(tb / ab, 3)
+        return round(float(tb / ab), 3)
 
     @classmethod
     def obp(cls, h, bb, hbp, ab, sf):
@@ -162,7 +162,7 @@ class Stats(object):
         :return: (float) ops
         """
         # OBPとSLGを計算してから足して四捨五入
-        return round(((tb / ab) + (h + bb + hbp) / (ab + bb + hbp + sf)), 3)
+        return round((float(tb / ab) + float(h + bb + hbp) / float(ab + bb + hbp + sf)), 3)
 
     @classmethod
     def babip(cls, h, hr, ab, so, sf):
@@ -197,9 +197,10 @@ class Stats(object):
         :return: (float) run created
         """
         # (出塁能力A * 進塁能力B) / 出塁機会C
-        a = h + bb + hbp - cs - gidp
-        b = tb + round(0.24 * (bb + hbp - ibb)) + round(0.62 * sb) + round(0.5 * (sh + sf)) - round(0.03 * so)
-        c = ab + bb + hbp + sf + sh
+        a = float(h + bb + hbp - cs - gidp)
+        b = float(tb) + round(0.24 * float(bb + hbp - ibb)) + round(0.62 * float(sb))\
+            + round(0.5 * float(sh + sf)) - round(0.03 * float(so))
+        c = float(ab + bb + hbp + sf + sh)
         a_b = round(a + 2.4 * c) * (b + 3 * c)
         _9c = 9 * c
         _09c = round(0.9 * c)

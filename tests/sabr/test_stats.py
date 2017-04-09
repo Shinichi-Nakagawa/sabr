@@ -141,7 +141,7 @@ class TestStats(unittest.TestCase):
 
     def test_rc(self):
         """
-        Run created 2002 test
+        Run created test
         :return:
         """
         # ichiro suzuki(2004)
