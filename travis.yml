@@ -1,0 +1,14 @@
+language: python
+cache: pip
+python:
+- 2.7
+- 3.3
+- 3.4
+- 3.5
+- 3.6
+before_install:
+- echo ===================pitchpx testing start============================
+script:
+- py.test ./tests
+after_success:
+- echo ===================pitchpx testing end==============================
