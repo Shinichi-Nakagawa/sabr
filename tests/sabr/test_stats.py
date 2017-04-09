@@ -82,6 +82,15 @@ class TestStats(unittest.TestCase):
         hr9 = Stats.hr9(26, 209.7)
         self.assertEqual(hr9, 1.1)
 
+    def test_fip(self):
+        """
+        FIP test
+        :return:
+        """
+        # Yu Darvish(2013)
+        fip = Stats.fip(26, 80, 8, 277, 209.2, 1)
+        self.assertEqual(fip, 3.34)
+
     def test_avg(self):
         """
         Batting average test

@@ -80,6 +80,24 @@ class Stats(object):
         return round((9 * hr) / ip, 1)
 
     @classmethod
+    def fip(cls, hr, bb, hbp, so, ip, ibb=0, c=3.12):
+        """
+        Fielding Independent Pitching(FIP)
+        :param hr: home run
+        :param bb: base on ball
+        :param hbp: hit by pitch
+        :param so: strike out
+        :param ip: inning pitched
+        :param ibb: intentional base on balls(default:0)
+        :param c: league constant(default:3.12)
+        :return: (float)FIP
+        """
+        _13hr = float(13.0 * hr)
+        _3bb = 3.0 * float(bb + hbp - ibb)
+        _2so = 2.0 * float(so)
+        return round((_13hr + _3bb - _2so) / float(ip) + c, 2)
+
+    @classmethod
     def single(cls, h, hr, _2b, _3b):
         """
         Single hits
