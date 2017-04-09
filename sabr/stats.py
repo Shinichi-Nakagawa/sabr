@@ -16,7 +16,7 @@ class Stats(object):
         :param ip_outs: inning pitched outs
         :return: (float) ip
         """
-        return round(ip_outs / 3, 1)
+        return round(float(ip_outs) / 3, 1)
 
     @classmethod
     def era(cls, er, ip):
@@ -124,7 +124,7 @@ class Stats(object):
         :param ab: at bat
         :return: (float)avg
         """
-        return round(h / ab, 3)
+        return round(float(h) / float(ab), 3)
 
     @classmethod
     def slg(cls, tb, ab):
@@ -147,7 +147,7 @@ class Stats(object):
         :param sf: sacrifice fly
         :return: (float)obp
         """
-        return round((h + bb + hbp) / (ab + bb + hbp + sf), 3)
+        return round(float(h + bb + hbp) / float(ab + bb + hbp + sf), 3)
 
     @classmethod
     def ops(cls, h, bb, hbp, ab, sf, tb):
@@ -175,7 +175,7 @@ class Stats(object):
         :param sf: sacrifice fly
         :return: (float) babip
         """
-        return round((h - hr) / (ab - so - hr + sf), 3)
+        return round(float(h - hr) / float(ab - so - hr + sf), 3)
 
     @classmethod
     def rc(cls, tb, h, bb, hbp, cs, gidp, sf, sh, sb, so, ab, ibb):
@@ -281,4 +281,4 @@ class Stats(object):
         :param bfp: batters faced
         :return: (float) adam dunn
         """
-        return round(((hr + bb + hbp + so) / bfp) * 100, 1)
+        return round(((float(hr) + float(bb) + float(hbp) + float(so)) / float(bfp)) * 100, 1)
