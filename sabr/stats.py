@@ -134,7 +134,7 @@ class Stats(object):
         :param ab: at bat
         :return: (float)slugging
         """
-        return round(float(tb / ab), 3)
+        return round(float(tb) / float(ab), 3)
 
     @classmethod
     def obp(cls, h, bb, hbp, ab, sf):
@@ -162,7 +162,7 @@ class Stats(object):
         :return: (float) ops
         """
         # OBPとSLGを計算してから足して四捨五入
-        return round((float(tb / ab) + float(h + bb + hbp) / float(ab + bb + hbp + sf)), 3)
+        return round((float(tb) / float(ab) + float(h + bb + hbp) / float(ab + bb + hbp + sf)), 3)
 
     @classmethod
     def babip(cls, h, hr, ab, so, sf):
