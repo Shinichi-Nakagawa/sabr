@@ -268,7 +268,7 @@ class Stats(object):
         :param pa: plate appearance
         :return: (float) adam dunn
         """
-        return round(((hr + bb + so) / pa) * 100, 1)
+        return round(((float(hr) + float(bb) + float(so)) / pa) * 100, 1)
 
     @classmethod
     def adam_dunn_pitcher(cls, hr, bb, hbp, so, bfp):
