@@ -178,7 +178,36 @@ class Stats(object):
         return round((h - hr) / (ab - so - hr + sf), 3)
 
     @classmethod
-    def rc(cls, h, bb, hbp, cs, gidp, sf, sh, sb, so, ab, ibb, single, _2b, _3b, hr):
+    def rc(cls, tb, h, bb, hbp, cs, gidp, sf, sh, sb, so, ab, ibb):
+        """
+        Runs Created
+        :param tb: total bases
+        :param h: hits
+        :param bb: base on ball
+        :param hbp: hit by pitch
+        :param cs: caught stealing
+        :param gidp: ground into duble play
+        :param tb: total bases
+        :param sf: sacrifice fly
+        :param sh: sacrifice hit
+        :param sb: stolen base
+        :param so: strike out
+        :param ab: at bat
+        :param ibb: intentional base on balls
+        :return: (float) run created
+        """
+        # (出塁能力A * 進塁能力B) / 出塁機会C
+        a = h + bb + hbp - cs - gidp
+        b = tb + round(0.24 * (bb + hbp - ibb)) + round(0.62 * sb) + round(0.5 * (sh + sf)) - round(0.03 * so)
+        c = ab + bb + hbp + sf + sh
+        a_b = round(a + 2.4 * c) * (b + 3 * c)
+        _9c = 9 * c
+        _09c = round(0.9 * c)
+        rc = round(a_b / _9c - _09c, 1)
+        return rc
+
+    @classmethod
+    def rc2002(cls, h, bb, hbp, cs, gidp, sf, sh, sb, so, ab, ibb, single, _2b, _3b, hr):
         """
         Runs Created of 2002 ver.
         [note]

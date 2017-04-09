@@ -141,13 +141,12 @@ class TestStats(unittest.TestCase):
 
     def test_rc(self):
         """
-        Run created test
+        Run created 2002 test
         :return:
         """
         # ichiro suzuki(2004)
-        single = Stats.single(262, 8, 24, 5)
-        rc = Stats.rc(262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19, single, 24, 5, 8)
-        self.assertEqual(rc, 136.5)
+        rc = Stats.rc(320, 262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19)
+        self.assertEqual(rc, 131.6)
 
     def test_rc27(self):
         """
@@ -155,8 +154,28 @@ class TestStats(unittest.TestCase):
         :return:
         """
         # ichiro suzuki(2004)
+        rc = Stats.rc(320, 262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19)
+        rc27 = Stats.rc27(rc, 704, 262, 2, 3, 11, 6)
+        self.assertEqual(rc27, 7.7)
+
+    def test_rc2002(self):
+        """
+        Run created 2002 test
+        :return:
+        """
+        # ichiro suzuki(2004)
         single = Stats.single(262, 8, 24, 5)
-        rc = Stats.rc(262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19, single, 24, 5, 8)
+        rc = Stats.rc2002(262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19, single, 24, 5, 8)
+        self.assertEqual(rc, 136.5)
+
+    def test_rc27_rc2002(self):
+        """
+        Run created 27 test
+        :return:
+        """
+        # ichiro suzuki(2004)
+        single = Stats.single(262, 8, 24, 5)
+        rc = Stats.rc2002(262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19, single, 24, 5, 8)
         rc27 = Stats.rc27(rc, 704, 262, 2, 3, 11, 6)
         self.assertEqual(rc27, 7.9)
 
