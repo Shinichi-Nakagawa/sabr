@@ -17,7 +17,7 @@ def read_file(filename):
 
 setup(
     name='sabr',
-    version='1.0',
+    version='1.1',
     description='SABRmetrics calculator for Python',
     long_description=read_file('README.rst'),
     author='Shinichi Nakagawa',
@@ -35,6 +35,4 @@ setup(
     include_package_data=True,
     keywords=['baseball', 'MLB', 'SABRmetrics', 'SABR', 'Major league baseball'],
     license='MIT License',
-    install_requires=[
-    ],
 )
