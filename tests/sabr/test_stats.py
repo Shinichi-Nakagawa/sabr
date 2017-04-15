@@ -155,7 +155,7 @@ class TestStats(unittest.TestCase):
         """
         # ichiro suzuki(2004)
         rc = Stats.rc(320, 262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19)
-        self.assertEqual(rc, 132.1)
+        self.assertEqual(rc, 132.09)
 
     def test_rc27(self):
         """
@@ -165,7 +165,7 @@ class TestStats(unittest.TestCase):
         # ichiro suzuki(2004)
         rc = Stats.rc(320, 262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19)
         rc27 = Stats.rc27(rc, 704, 262, 2, 3, 11, 6)
-        self.assertEqual(rc27, 7.7)
+        self.assertEqual(rc27, 7.69)
 
     def test_rc2002(self):
         """
@@ -186,7 +186,46 @@ class TestStats(unittest.TestCase):
         single = Stats.single(262, 8, 24, 5)
         rc = Stats.rc2002(262, 49, 4, 11, 6, 3, 2, 36, 63, 704, 19, single, 24, 5, 8)
         rc27 = Stats.rc27(rc, 704, 262, 2, 3, 11, 6)
-        self.assertEqual(rc27, 8.0)
+        self.assertEqual(rc27, 7.95)
+
+    def test_woba_npb(self):
+        """
+        wOBA(NPB) test
+        :return:
+        """
+        # hayato sakamoto(2016)
+        w_oba = Stats.woba_npb(81, 0, 114, 28, 3, 23, 488, 6, ibb=2, e_bb=2)
+        self.assertEqual(w_oba, 0.428)
+        # tetsuto yamada(2016, non error on bb & ibb)
+        single = Stats.single(146, 38, 26, 3)
+        w_oba = Stats.woba_npb(97, 8, single, 26, 3, 38, 481, 4)
+        self.assertEqual(w_oba, 0.44)
+
+    def test_woba_mlb(self):
+        """
+        wOBA(MLB) test
+        :return:
+        """
+        # hayato sakamoto(2016)
+        w_oba = Stats.woba_mlb(81, 0, 114, 28, 3, 23, 488, 6, ibb=2)
+        self.assertEqual(w_oba, 0.427)
+        # tetsuto yamada(2016, non error on bb & ibb)
+        single = Stats.single(146, 38, 26, 3)
+        w_oba = Stats.woba_mlb(97, 8, single, 26, 3, 38, 481, 4)
+        self.assertEqual(w_oba, 0.442)
+
+    def test_wraa(self):
+        """
+        wRAA test
+        :return:
+        """
+        # hayato sakamoto(2016)
+        wraa = Stats.wraa(0.428 ,0.323, 576)
+        self.assertEqual(wraa, 48.8)
+
+        # scale指定
+        wraa = Stats.wraa(0.428 ,0.323, 576, woba_scale=1.189)
+        self.assertEqual(wraa, 50.9)
 
     def test_babip(self):
         """
