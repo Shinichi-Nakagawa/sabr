@@ -307,7 +307,7 @@ class Stats(object):
     @classmethod
     def woba_mlb(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0):
         """
-        Weighted on-base average for NPB(wOBA)
+        Weighted on-base average for MLB(wOBA)
         http://www.fangraphs.com/library/offense/woba/
         :param bb: base on ball
         :param hbp: hit by pitch
