@@ -328,6 +328,20 @@ class Stats(object):
         return round((u_bb + u_hbp + u_h) / u_pa, 3)
 
     @classmethod
+    def wraa(cls, woba, lg_woba, pa, woba_scale=1.24):
+        """
+        Weighted Runs Above Average(wRAA)
+        http://1point02.jp/
+        :param woba: weighted on-base average
+        :param lg_woba: weighted on-base average(league average)
+        :param woba_scale: Weighted Runs Above Average scale(default:1.2
+        :param pa: plate appearance
+        :param woba_scale: weighted on-base average scale(default:1.24)
+        :return: (float) wRAA
+        """
+        return round(((woba - lg_woba) / woba_scale) * float(pa), 1)
+
+    @classmethod
     def adam_dunn_batter(cls, hr, bb, so, pa):
         """
         Adam dunn %(batter)

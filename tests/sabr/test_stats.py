@@ -214,6 +214,19 @@ class TestStats(unittest.TestCase):
         w_oba = Stats.woba_mlb(97, 8, single, 26, 3, 38, 481, 4)
         self.assertEqual(w_oba, 0.442)
 
+    def test_wraa(self):
+        """
+        wRAA test
+        :return:
+        """
+        # hayato sakamoto(2016)
+        wraa = Stats.wraa(0.428 ,0.323, 576)
+        self.assertEqual(wraa, 48.8)
+
+        # scale指定
+        wraa = Stats.wraa(0.428 ,0.323, 576, woba_scale=1.189)
+        self.assertEqual(wraa, 50.9)
+
     def test_babip(self):
         """
         BABIP test
