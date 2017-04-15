@@ -222,7 +222,7 @@ class Stats(object):
         a_b = round(a + 2.4 * c) * (b + 3.0 * c)
         _9c = round(9.0 * c, 1)
         _09c = round(0.9 * c, 1)
-        rc = round(a_b / _9c - _09c, 1)
+        rc = round(a_b / _9c - _09c, 2)
         return rc
 
     @classmethod
@@ -259,7 +259,7 @@ class Stats(object):
         a_b = round(a + 2.4 * c, 1) * (b + 3.0 * c)
         _9c = round(9.0 * c, 1)
         _09c = round(0.9 * c, 1)
-        rc = round(a_b / _9c - _09c, 1)
+        rc = round(a_b / _9c - _09c, 2)
         return rc
 
     @classmethod
@@ -276,8 +276,56 @@ class Stats(object):
         :return: (float) run created 27
         """
         to = ab - h + sh + sf + cs + gidp
-        rc27 = round(27 * rc / to, 1)
+        rc27 = round(27 * rc / to, 2)
         return rc27
+
+    @classmethod
+    def woba_npb(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0, e_bb=0):
+        """
+        Weighted on-base average for NPB(wOBA)
+        http://1point02.jp/
+        :param bb: base on ball
+        :param hbp: hit by pitch
+        :param _1b: single
+        :param _2b: double
+        :param _3b: triple
+        :param hr: home run
+        :param ab: at bat
+        :param sf: sacrifice fly
+        :param ibb: intentional base on balls(default:0)
+        :param e_bb: base on ball for error(default:0)
+        :return: (float) wOBA
+        """
+        u_bb = round(0.692 * float(bb-ibb), 3)
+        u_hbp = round(float(0.73 * hbp), 3)
+        u_e_bb = round(0.966 * float(e_bb), 3)
+        u_h = round(0.865 * float(_1b), 3) + round(1.334 * float(_2b), 3)\
+              + round(1.725 * (_3b), 3) + round(2.065 * float(hr), 3)
+        u_pa = round(float(ab + bb - ibb + hbp + sf), 3)
+        return round((u_bb + u_hbp + u_e_bb + u_h) / u_pa, 3)
+
+    @classmethod
+    def woba_mlb(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0):
+        """
+        Weighted on-base average for NPB(wOBA)
+        http://www.fangraphs.com/library/offense/woba/
+        :param bb: base on ball
+        :param hbp: hit by pitch
+        :param _1b: single
+        :param _2b: double
+        :param _3b: triple
+        :param hr: home run
+        :param ab: at bat
+        :param sf: sacrifice fly
+        :param ibb: intentional base on balls(default:0)
+        :return: (float) wOBA
+        """
+        u_bb = round(0.69 * float(bb-ibb), 3)
+        u_hbp = round(float(0.72 * hbp), 3)
+        u_h = round(0.89 * float(_1b), 3) + round(1.27 * float(_2b), 3)\
+              + round(1.62 * (_3b), 3) + round(2.10 * float(hr), 3)
+        u_pa = round(float(ab + bb - ibb + hbp + sf), 3)
+        return round((u_bb + u_hbp + u_h) / u_pa, 3)
 
     @classmethod
     def adam_dunn_batter(cls, hr, bb, so, pa):
