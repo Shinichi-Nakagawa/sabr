@@ -261,6 +261,18 @@ class TestStats(unittest.TestCase):
         """
         self.assertEqual(Stats.pa(704, 49, 4, 2, 3), 762)
 
+    def test_rsaa(self):
+        """
+        plate appearance test
+        :return:
+        """
+        # nagisa arakaki(2004)
+        self.assertEqual(Stats.rsaa(3.51, 5.14, 192.1), 34.8)
+        # hisashi iwakuma(2004)
+        self.assertEqual(Stats.rsaa(3.23, 5.14, 158.2), 33.6)
+        # Dice-K(2004)
+        self.assertEqual(Stats.rsaa(3.08, 5.14, 146), 33.4)
+
 
 if __name__ == '__main__':
     unittest.main()
