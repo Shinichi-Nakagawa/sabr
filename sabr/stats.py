@@ -280,6 +280,30 @@ class Stats(object):
         return rc27
 
     @classmethod
+    def woba(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0, e_bb=0, **kwargs):
+        """
+        Weighted on-base average
+        :param bb: base on ball
+        :param hbp: hit by pitch
+        :param _1b: single
+        :param _2b: double
+        :param _3b: triple
+        :param hr: home run
+        :param ab: at bat
+        :param sf: sacrifice fly
+        :param ibb: intentional base on balls(default:0)
+        :param e_bb: base on ball for error(default:0)
+        :return: (float) wOBA
+        """
+        u_bb = round(kwargs.get('const_u_bb') * float(bb-ibb), 3)
+        u_hbp = round(float(kwargs.get('const_u_hbp') * hbp), 3)
+        u_e_bb = round(kwargs.get('const_u_e_bb') * float(e_bb), 3)
+        u_h = round(kwargs.get('const_u_1b') * float(_1b), 3) + round(kwargs.get('const_u_2b') * float(_2b), 3)\
+              + round(kwargs.get('const_u_3b') * (_3b), 3) + round(kwargs.get('const_u_hr') * float(hr), 3)
+        u_pa = round(float(ab + bb - ibb + hbp + sf), 3)
+        return round((u_bb + u_hbp + u_e_bb + u_h) / u_pa, 3)
+
+    @classmethod
     def woba_npb(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0, e_bb=0):
         """
         Weighted on-base average for NPB(wOBA)
@@ -296,13 +320,16 @@ class Stats(object):
         :param e_bb: base on ball for error(default:0)
         :return: (float) wOBA
         """
-        u_bb = round(0.692 * float(bb-ibb), 3)
-        u_hbp = round(float(0.73 * hbp), 3)
-        u_e_bb = round(0.966 * float(e_bb), 3)
-        u_h = round(0.865 * float(_1b), 3) + round(1.334 * float(_2b), 3)\
-              + round(1.725 * (_3b), 3) + round(2.065 * float(hr), 3)
-        u_pa = round(float(ab + bb - ibb + hbp + sf), 3)
-        return round((u_bb + u_hbp + u_e_bb + u_h) / u_pa, 3)
+        _calc_params = {
+            'const_u_bb': 0.692,
+            'const_u_hbp': 0.73,
+            'const_u_e_bb': 0.966,
+            'const_u_1b': 0.865,
+            'const_u_2b': 1.334,
+            'const_u_3b': 1.725,
+            'const_u_hr': 2.065
+        }
+        return cls.woba(bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb, e_bb, **_calc_params)
 
     @classmethod
     def woba_mlb(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0):
@@ -320,12 +347,16 @@ class Stats(object):
         :param ibb: intentional base on balls(default:0)
         :return: (float) wOBA
         """
-        u_bb = round(0.69 * float(bb-ibb), 3)
-        u_hbp = round(float(0.72 * hbp), 3)
-        u_h = round(0.89 * float(_1b), 3) + round(1.27 * float(_2b), 3)\
-              + round(1.62 * (_3b), 3) + round(2.10 * float(hr), 3)
-        u_pa = round(float(ab + bb - ibb + hbp + sf), 3)
-        return round((u_bb + u_hbp + u_h) / u_pa, 3)
+        _calc_params = {
+            'const_u_bb': 0.69,
+            'const_u_hbp': 0.72,
+            'const_u_e_bb': 0,
+            'const_u_1b': 0.89,
+            'const_u_2b': 1.27,
+            'const_u_3b': 1.62,
+            'const_u_hr': 2.10,
+        }
+        return cls.woba(bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb, e_bb=0, **_calc_params)
 
     @classmethod
     def wraa(cls, woba, lg_woba, pa, woba_scale=1.24):
@@ -365,3 +396,14 @@ class Stats(object):
         :return: (float) adam dunn
         """
         return round(((float(hr) + float(bb) + float(hbp) + float(so)) / float(bfp)) * 100, 1)
+
+    @classmethod
+    def rsaa(cls, ra, league_ra, ip):
+        """
+        Run Saved Above Average
+        :param ra: run average
+        :param league_ra: league run average
+        :param ip: inning pitched
+        :return: (float) rsaa
+        """
+        return round(float(league_ra - ra) * ip / 9.0, 1)
