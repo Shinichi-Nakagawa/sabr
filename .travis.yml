@@ -6,6 +6,8 @@ python:
 - 3.6
 - 3.7
 - echo ===================pitchpx testing start============================
+install:
+- pip install pytest
 script:
 - py.test ./tests
 after_success:
