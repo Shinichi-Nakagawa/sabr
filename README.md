@@ -6,7 +6,7 @@ SABRmetrics calculator for Python
 Requirement
 ====================
 
-python 2.7+
+python 3.5+
 
 Install
 ====================

@@ -17,7 +17,7 @@ def read_file(filename):
 
 setup(
     name='sabr',
-    version='1.2',
+    version='2.0',
     description='SABRmetrics calculator for Python',
     long_description=read_file('README.rst'),
     author='Shinichi Nakagawa',
@@ -28,7 +28,6 @@ setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
     ],
     packages=find_packages(),
