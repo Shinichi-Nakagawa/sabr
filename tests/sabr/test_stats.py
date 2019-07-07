@@ -167,6 +167,15 @@ class TestStats(unittest.TestCase):
         rc27 = Stats.rc27(rc, 704, 262, 2, 3, 11, 6)
         self.assertEqual(rc27, 7.69)
 
+    def test_base_runs(self):
+        """
+        Base Runs
+        :return:
+        """
+        # ichiro suzuki(2004)
+        bsr = Stats.base_runs(704, 320, 262, 8, 49, 4, 36, 11, 6, 19)
+        self.assertEqual(bsr, 129.38)
+
     def test_rc2002(self):
         """
         Run created 2002 test

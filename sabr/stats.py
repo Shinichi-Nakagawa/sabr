@@ -216,7 +216,7 @@ class Stats(object):
         """
         # (出塁能力A * 進塁能力B) / 出塁機会C
         a = float(h + bb + hbp - cs - gidp)
-        b = float(tb) + round(0.24 * float(bb + hbp - ibb), 1) + round(0.62 * float(sb), 1)\
+        b = float(tb) + round(0.24 * float(bb + hbp - ibb), 1) + round(0.62 * float(sb), 1) \
             + round(0.5 * float(sh + sf), 1) - round(0.03 * float(so), 1)
         c = float(ab + bb + hbp + sf + sh)
         a_b = round(a + 2.4 * c) * (b + 3.0 * c)
@@ -250,10 +250,10 @@ class Stats(object):
         :return: (float) run created
         """
         # (出塁能力A * 進塁能力B) / 出塁機会C
-        custom_tb = round(1.125 * float(single), 1) + round(1.69 * float(_2b), 1)\
+        custom_tb = round(1.125 * float(single), 1) + round(1.69 * float(_2b), 1) \
                     + round(3.02 * float(_3b), 1) + round(3.73 * float(hr), 1)
         a = float(h + bb + hbp - cs - gidp)
-        b = custom_tb + round(0.29 * float(bb + hbp - ibb), 1)\
+        b = custom_tb + round(0.29 * float(bb + hbp - ibb), 1) \
             + round(0.492 * float(sf + sh + sb), 1) - round(0.04 * float(so), 1)
         c = float(ab + bb + hbp + sf + sh)
         a_b = round(a + 2.4 * c, 1) * (b + 3.0 * c)
@@ -280,6 +280,30 @@ class Stats(object):
         return rc27
 
     @classmethod
+    def base_runs(cls, ab, tb, h, hr, bb, hbp, sb, cs, gidp, ibb=0):
+        """
+        Base Runs
+        https://en.wikipedia.org/wiki/Base_runs
+        :param ab: at bat
+        :param tb: total bases
+        :param h: hits
+        :param hr: home run
+        :param bb: base on ball
+        :param hbp: hit by pitch
+        :param sb: stolen base
+        :param cs: caught stealing
+        :param gidp: ground into duble play
+        :param ibb: intentional base on balls
+        :return: (float) Base Runs
+        """
+        a = h + bb + hbp - hr - (0.5 * ibb)
+        b = (1.4 * tb - 0.6 * h - 3 * hr + 0.1 * (bb + hbp - ibb) + 0.9 * (sb - cs - gidp)) * 1.1
+        c = ab - h + cs + gidp
+        d = hr
+        bsr = a * round(b / (b + c), 3) + d
+        return bsr
+
+    @classmethod
     def woba(cls, bb, hbp, _1b, _2b, _3b, hr, ab, sf, ibb=0, e_bb=0, **kwargs):
         """
         Weighted on-base average
@@ -295,10 +319,10 @@ class Stats(object):
         :param e_bb: base on ball for error(default:0)
         :return: (float) wOBA
         """
-        u_bb = round(kwargs.get('const_u_bb') * float(bb-ibb), 3)
+        u_bb = round(kwargs.get('const_u_bb') * float(bb - ibb), 3)
         u_hbp = round(float(kwargs.get('const_u_hbp') * hbp), 3)
         u_e_bb = round(kwargs.get('const_u_e_bb') * float(e_bb), 3)
-        u_h = round(kwargs.get('const_u_1b') * float(_1b), 3) + round(kwargs.get('const_u_2b') * float(_2b), 3)\
+        u_h = round(kwargs.get('const_u_1b') * float(_1b), 3) + round(kwargs.get('const_u_2b') * float(_2b), 3) \
               + round(kwargs.get('const_u_3b') * (_3b), 3) + round(kwargs.get('const_u_hr') * float(hr), 3)
         u_pa = round(float(ab + bb - ibb + hbp + sf), 3)
         return round((u_bb + u_hbp + u_e_bb + u_h) / u_pa, 3)
